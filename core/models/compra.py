@@ -18,7 +18,7 @@ class Compra(models.Model):
         
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compra", null=True, blank=True)
     status = models.IntegerField(choices=StatusCompra.choices, default=StatusCompra.CARRINHO)
-    metodo_Pagamento = models.IntegerChoices(choices=MetodoPagamento.choices, default=MetodoPagamento.PIX)
+    metodo_Pagamento = models.IntegerField(choices=MetodoPagamento.choices, default=MetodoPagamento.PIX)
     data = models.DateTimeField(default=timezone.now)
 
 

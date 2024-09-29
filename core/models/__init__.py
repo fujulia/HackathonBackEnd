@@ -6,4 +6,6 @@ from .telefone import Telefone
 from .compra import Compra, ItensCompra
 from .avaliacao import Avaliacao
 from .cupom import Cupom
-from .foto import Foto
+from .categoria import Categoria
+from .despesa import Despesa
+from .MovimentacaoFinanceira import MovimentacaoFinanceira
