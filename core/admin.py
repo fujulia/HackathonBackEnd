@@ -16,7 +16,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ["email", "name"]
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal Info"), {"fields": ("name", "passage_id")}),
+        (_("Personal Info"), {"fields": ("name", "passage_id", "telefone", "endereco")}),
         (
             _("Permissions"),
             {
@@ -42,6 +42,8 @@ class UserAdmin(BaseUserAdmin):
                     "password1",
                     "password2",
                     "name",
+                    "telefone",
+                    "endereco",
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -52,3 +54,18 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Produto)
+admin.site.register(models.Fabricante)
+admin.site.register(models.Endereco)
+admin.site.register(models.Telefone)
+admin.site.register(models.Compra)
+admin.site.register(models.ItensCompra)
+admin.site.register(models.Avaliacao)
+admin.site.register(models.Cupom)
+admin.site.register(models.Categoria)
+admin.site.register(models.Despesa)
+admin.site.register(models.MovimentacaoFinanceira)
+
+
+
+

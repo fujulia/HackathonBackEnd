@@ -8,7 +8,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-
+from .telefone import Telefone
+from .endereco import Endereco
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -42,6 +43,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     passage_id = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    endereco =  models.ManyToManyField(Endereco, related_name="endereco_usuario", blank=True)
+    telefone =  models.ManyToManyField(Telefone, related_name="telefone_usuario", blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
