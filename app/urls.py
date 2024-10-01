@@ -11,11 +11,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from uploader.router import router as uploader_router
 from django.conf import settings
-from core.views import UserViewSet
+from core.views import UserViewSet, ProdutoViewSet, FabricanteViewSet
 
 router = DefaultRouter()
 
 router.register(r"usuarios", UserViewSet, basename="usuarios")
+router.register(r"produtos", ProdutoViewSet)
+router.register(r"fabricantes", FabricanteViewSet)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,6 +41,7 @@ urlpatterns = [
     path("api/media/", include(uploader_router.urls)),
     # API
     path("api/", include(router.urls)),
+
 ]
 
 urlpatterns += static(settings.MEDIA_ENDPOINT, document_root=settings.MEDIA_ROOT)
