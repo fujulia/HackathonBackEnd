@@ -10,4 +10,4 @@ class Endereco(models.Model):
     cep = models.CharField(max_length=8)
     
     def __str__(self):
-        return f"{self.rua} {self.numero} ({self.bairro})"
+        return f"Rua {self.rua} {self.numero} ({self.bairro})"
