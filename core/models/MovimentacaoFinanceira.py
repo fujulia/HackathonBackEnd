@@ -19,14 +19,14 @@ class MovimentacaoFinanceira(models.Model):
     
     
     
-@receiver(post_save, sender=Compra)
-def criar_movimentacao_entrada(sender, instance, created, **kwargs):
-    if created:
-        MovimentacaoFinanceira.objects.create(
-            tipo=1,
-            valor=instance.valor_total,
-            descricao=f"Venda de {instance.produto.nome}",
-        )
+# @receiver(post_save, sender=Compra)
+# def criar_movimentacao_entrada(sender, instance, created, **kwargs):
+#     if created:
+#         MovimentacaoFinanceira.objects.create(
+#             tipo=1,
+#             valor=instance.total,
+#             descricao=f"Venda de {instance.produto.nome}",
+#         )
 
 @receiver(post_save, sender=Despesa)
 def criar_movimentacao_saida(sender, instance, created, **kwargs):
