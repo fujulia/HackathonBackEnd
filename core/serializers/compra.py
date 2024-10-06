@@ -1,4 +1,9 @@
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    CharField,
+    ModelSerializer,
+    SerializerMethodField,
+)
+
 
 from core.models import Compra, ItensCompra
 
@@ -44,4 +49,33 @@ class CriarEditarCompraSerializer(ModelSerializer):
             ItensCompra.objects.create(compra=compra, **item_data)
         compra.save()
         return compra
+    
+    
+    def update(self, compra, validated_data):
+        itens_data = validated_data.pop("itens")
+        if itens_data:
+            compra.itens.all().delete()
+            for item_data in itens_data:
+                ItensCompra.objects.create(compra=compra, **item_data)
+        compra.save()
+        return super().update(compra, validated_data)
+    
+    
+#listar compras 
 
+class ListarItensCompraSerializer(ModelSerializer):
+    produto = CharField(source="produto.nome", read_only=True)
+
+    class Meta:
+        model = ItensCompra
+        fields = ("quantidade", "produto")
+        depth = 1
+
+
+class ListarCompraSerializer(ModelSerializer):
+    usuario = CharField(source="usuario.email", read_only=True)
+    itens = ListarItensCompraSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Compra
+        fields = ("id", "usuario", "itens")
