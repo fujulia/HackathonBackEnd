@@ -132,10 +132,10 @@ else:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=8),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
-}
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(hours=8),
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+# }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "<PROJETO> API",
@@ -147,7 +147,7 @@ AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("core.authentication.TokenAuthentication",), # Autenticação no passage.id
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"), # Permissão total para usuários autenticados
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly", ), 
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",), # Permissões através dos grupos do Django
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -155,8 +155,11 @@ REST_FRAMEWORK = {
     # "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",), Autenticação com JWT
 }
 
-PASSAGE_APP_ID = os.getenv("PASSAGE_APP_ID", "app_id")
-PASSAGE_API_KEY = os.getenv("PASSAGE_API_KEY", "api_key")
+PASSAGE_APP_ID = "V0alwA7XSzKK5hRenPSvbiYf"
+PASSAGE_API_KEY = "OIBsFjDqbO.ZRSTN07P4Xb72detsxQmgMKdKWpx1XdYu4VoE3NjXmjeu0Ms3FDolGteWlf3GXVm"
+
 PASSAGE_AUTH_STRATEGY = 2
+
+
 
 print(f"{MODE = } \n{MEDIA_URL = } \n{DATABASES = }")
