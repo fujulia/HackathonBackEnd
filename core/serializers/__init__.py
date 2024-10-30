@@ -1,5 +1,5 @@
 from .user import UserSerializer
-from .produto import ProdutoSerializer
+from .produto import ProdutoSerializer, ProdutoDetailSerializer, AlterarPrecoSerializer
 from .fabricante import FabricanteSerializer
 from .avaliacao import AvaliacaoSerializer
 from .endereco import EnderecoSerializer
