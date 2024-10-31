@@ -10,6 +10,7 @@ from django.contrib.auth.models import (
 from django.db import models
 from .telefone import Telefone
 from .endereco import Endereco
+from uploader.models import Image
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -45,6 +46,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     endereco =  models.ManyToManyField(Endereco, related_name="endereco_usuario", blank=True)
     telefone =  models.ManyToManyField(Telefone, related_name="telefone_usuario", blank=True)
+    foto = models.ForeignKey(
+        Image,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
