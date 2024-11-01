@@ -3,7 +3,7 @@ from .user import User
 from django.utils import timezone
 
 class Orcamento(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compra", null=True, blank=True)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="orcamento", null=True, blank=True)
     consumoMensal = models.DecimalField(max_digits=10, decimal_places=2)
     gastoSemPlaca = models.DecimalField(max_digits=10, decimal_places=2)
     estado = models.CharField(max_length=255, null=False, blank=True)
@@ -13,6 +13,7 @@ class Orcamento(models.Model):
     gastoComPlaca = models.DecimalField(max_digits=10, decimal_places=2)
     playback = models.DecimalField(max_digits=10, decimal_places=1)
     porcetangemReducao = models.DecimalField(max_digits=10, decimal_places=2)
+    qtdPlaca = models.IntegerField(null=True, blank=True)
     data = models.DateTimeField(default=timezone.now)
      
      
