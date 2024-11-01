@@ -9,3 +9,4 @@ from .cupom import Cupom
 from .categoria import Categoria
 from .despesa import Despesa
 from .MovimentacaoFinanceira import MovimentacaoFinanceira
+from .orcamento import Orcamento

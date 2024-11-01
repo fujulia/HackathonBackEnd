@@ -11,7 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from uploader.router import router as uploader_router
 from django.conf import settings
-from core.views import UserViewSet, ProdutoViewSet, FabricanteViewSet, AvaliacaoViewSet, EnderecoViewSet, TelefoneViewSet, DespesaViewSet, CupomViewSet, CompraViewSet, MovimentacaoViewSet
+from core.views import UserViewSet, ProdutoViewSet, FabricanteViewSet, AvaliacaoViewSet, EnderecoViewSet, TelefoneViewSet, DespesaViewSet, CupomViewSet, CompraViewSet, MovimentacaoViewSet, OrcamentoViewSet
 
 router = DefaultRouter()
 
@@ -25,6 +25,7 @@ router.register(r"despesas", DespesaViewSet)
 router.register(r"cupons", CupomViewSet)
 router.register(r"compras", CompraViewSet)
 router.register(r"movimentacoes", MovimentacaoViewSet)
+router.register(r"orcamentos", OrcamentoViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -8,3 +8,4 @@ from .despesa import DespesaViewSet
 from .cupom import CupomViewSet
 from .compra import CompraViewSet
 from .MovimentacaoFinanceira import MovimentacaoViewSet
+from .orcamento import OrcamentoViewSet
