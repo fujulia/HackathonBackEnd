@@ -160,6 +160,14 @@ PASSAGE_API_KEY = "OIBsFjDqbO.ZRSTN07P4Xb72detsxQmgMKdKWpx1XdYu4VoE3NjXmjeu0Ms3F
 
 PASSAGE_AUTH_STRATEGY = 2
 
+ADMIN_GROUP_NAME = 'Administradores' 
+COMPRADOR_GROUP_NAME = 'Compradores' 
+
+ADMIN_EMAILS = [
+    'juliafu713@gmail.com',
+    'vinyescolas@gmail.com'
+]
+
 
 
 print(f"{MODE = } \n{MEDIA_URL = } \n{DATABASES = }")
