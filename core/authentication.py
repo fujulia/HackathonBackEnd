@@ -44,21 +44,25 @@ class TokenAuthentication(authentication.BaseAuthentication):
         try:
             # Busca o usuário existente
             user: User = User.objects.get(passage_id=psg_user_id)
+            psg_user: UserInfo = psg.getUser(psg_user_id)
+            print(f"Dados do Passage: {vars(psg_user)}") 
             self._promote_if_admin(user)  # Promove se necessário
             return user
         except ObjectDoesNotExist:
             # Cria novo usuário se não encontrado
             try:
                 psg_user: UserInfo = psg.getUser(psg_user_id)
+                print(f"Dados do Passage: {vars(psg_user)}") 
                 user: User = User.objects.create_user(
                     passage_id=psg_user.id,
                     email=psg_user.email,
+                    name= psg_user.email.split("@")[0]
                 )
                 self._promote_if_admin(user)  # Promove se necessário
                 return user
             except PassageError as e:
                 raise AuthenticationFailed("Erro ao obter informações do usuário do Passage.") from e
-
+            
     def _promote_if_admin(self, user: User) -> None:
         if user.email in settings.ADMIN_EMAILS:
             group, created = Group.objects.get_or_create(name=settings.ADMIN_GROUP_NAME)
@@ -71,7 +75,7 @@ class TokenAuthentication(authentication.BaseAuthentication):
         else:
             group, created = Group.objects.get_or_create(name=settings.COMPRADOR_GROUP_NAME)
             user.groups.add(group) 
-            user.save()
+            user.save
 
     def _get_user_id(self, request) -> str:
         try:
