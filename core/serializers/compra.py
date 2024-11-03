@@ -9,7 +9,8 @@ from rest_framework.serializers import (
 )
 
 from core.models import Compra, ItensCompra
-
+from .cupom import CupomSerializer
+from django.db import transaction
         
 class ItensCompraSerializer(ModelSerializer):
     total = SerializerMethodField()
@@ -43,10 +44,11 @@ class CompraSerializer(ModelSerializer):
     itens = ItensCompraSerializer(read_only=True, many=True)
     data = DateTimeField(read_only=True) 
     tipo_pagamento = CharField(source="get_tipo_pagamento_display", read_only=True)
+    cupom = CupomSerializer(read_only=True)
 
     class Meta:
         model = Compra
-        fields = ("id", "usuario", "status", "total", "data", "tipo_pagamento", "itens")
+        fields = ("id", "usuario", "status", "total", "data", "tipo_pagamento", "itens", "cupom", "desconto")
         
 
 class CriarEditarCompraSerializer(ModelSerializer):
@@ -58,12 +60,18 @@ class CriarEditarCompraSerializer(ModelSerializer):
         fields = ("usuario", "itens")
 
     def create(self, validated_data):
-        itens = validated_data.pop("itens")
-        compra = Compra.objects.create(**validated_data)
-        for item in itens:
-            item["preco"] = item["produto"].preco # nova linha
-            ItensCompra.objects.create(compra=compra, **item)
-        compra.save()
+        itens_data = validated_data.pop("itens")
+        cupom = validated_data.pop("cupom", None)
+
+        with transaction.atomic():
+            compra = Compra.objects.create(**validated_data, cupom=cupom)
+
+            # Criação dos itens da compra
+            for item_data in itens_data:
+                item_data["preco"] = item_data["produto"].preco
+                ItensCompra.objects.create(compra=compra, **item_data)
+
+            compra.total()  # Atualiza o total após a criação
         return compra
     
     
@@ -74,6 +82,9 @@ class CriarEditarCompraSerializer(ModelSerializer):
             for item in itens:
                 item["preco"] = item["produto"].preco  # nova linha
                 ItensCompra.objects.create(compra=compra, **item)
+        cupom = validated_data.get("cupom", None)
+        compra.cupom = cupom  # Atualiza o cupom
+        compra.total()
         compra.save()
         return super().update(compra, validated_data)
     
