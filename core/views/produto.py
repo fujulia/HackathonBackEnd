@@ -41,7 +41,7 @@ class ProdutoViewSet(ModelViewSet):
 
         # Retorna uma resposta de sucesso
         return Response(
-            {"detail": f"Preço do produto '{produto.titulo}' atualizado para {produto.preco}."}, status=status.HTTP_200_OK
+            {"detail": f"Preço do produto '{produto.nome}' atualizado para {produto.preco}."}, status=status.HTTP_200_OK
         )
 
     @action(detail=True, methods=["post"])

@@ -22,14 +22,16 @@ class Compra(models.Model):
     metodo_Pagamento = models.IntegerField(choices=MetodoPagamento.choices, default=MetodoPagamento.PIX)
     data = models.DateTimeField(default=timezone.now)
     cupom = models.ForeignKey(Cupom, on_delete=models.SET_NULL, null=True, blank=True)
+    desconto = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     
-    
-    def calcular_total(self):
-        total = sum(item.preco * item.quantidade for item in self.itens.all())
+    @property
+    def total(self):
+        total = sum(item.produto.preco * item.quantidade for item in self.itens.all())
         if self.cupom:
+            self.desconto = total * self.cupom.porcentagem_desconto
             total *= (1 - self.cupom.porcentagem_desconto)
         return total
-
 
 class ItensCompra(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, related_name="itens")

@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from core.models import Compra
+from core.models import Compra, Cupom
 from core.serializers import CompraSerializer, CriarEditarCompraSerializer, ListarCompraSerializer
 from django.db import transaction
 
@@ -12,13 +12,13 @@ class CompraViewSet(ModelViewSet):
     serializer_class = CompraSerializer
     
     
-    def get_queryset(self):
-        usuario = self.request.user
-        if usuario.is_superuser:
-            return Compra.objects.all()
-        if usuario.groups.filter(name="Administradores"):
-            return Compra.objects.all()
-        return Compra.objects.filter(usuario=usuario)
+    # def get_queryset(self):
+    #     usuario = self.request.user
+    #     if usuario.is_superuser:
+    #         return Compra.objects.all()
+    #     if usuario.groups.filter(name="Administradores"):
+    #         return Compra.objects.all()
+    #     return Compra.objects.filter(usuario=usuario)
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -44,6 +44,22 @@ class CompraViewSet(ModelViewSet):
         # Abre uma transação atômica para garantir que todas as operações no banco
         # de dados ocorram de forma consistente (ou todas são salvas ou nenhuma).
         with transaction.atomic():
+            
+            cupom_nome = request.data.get("cupom", "").upper()
+            
+            if cupom_nome:
+            # Busca o cupom na tabela, verifica se está ativo e se ainda é válido
+                cupom = Cupom.objects.filter(nome=cupom_nome).first()
+                if cupom:
+                    # Aplica o desconto da tabela Cupom
+                    compra.cupom = cupom
+                    compra.desconto = cupom.porcentagem_desconto * 100  # Armazena o valor do desconto na compra
+                else:
+                    return Response(
+                        status=status.HTTP_400_BAD_REQUEST,
+                        data={"status": "Cupom inválido ou expirado"}
+                    )
+                
             # Itera sobre todos os itens da compra.
             for item in compra.itens.all():
 
