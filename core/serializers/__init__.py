@@ -16,3 +16,4 @@ from .compra import (
 )
 from .MovimentacaoFinanceira import MovimentacaoSerializer
 from .orcamento import OrcamentoSerializer
+from .categoria import CategoriaSerializer
