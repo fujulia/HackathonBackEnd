@@ -6,5 +6,5 @@ from core.serializers import EnderecoSerializer
 class EnderecoViewSet(ModelViewSet):
     queryset = Endereco.objects.all()
     serializer_class = EnderecoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["estado", "cidade" , "bairro", "rua", "complemento"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["estado", "cidade" , "bairro", "rua", "complemento"]

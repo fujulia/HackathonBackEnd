@@ -6,5 +6,5 @@ from core.serializers import TelefoneSerializer
 class TelefoneViewSet(ModelViewSet):
     queryset = Telefone.objects.all()
     serializer_class = TelefoneSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["ddd"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["ddd"]

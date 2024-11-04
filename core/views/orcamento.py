@@ -6,5 +6,5 @@ from core.serializers import  OrcamentoSerializer
 class OrcamentoViewSet(ModelViewSet):
     queryset = Orcamento.objects.all()
     serializer_class = OrcamentoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["usuario", "data" , "estado"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["usuario", "data" , "estado"]

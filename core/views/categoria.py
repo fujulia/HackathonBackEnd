@@ -6,5 +6,5 @@ from core.serializers import CategoriaSerializer
 class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["nome", "descricao"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["nome", "descricao"]

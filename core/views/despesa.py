@@ -6,5 +6,5 @@ from core.serializers import DespesaSerializer
 class DespesaViewSet(ModelViewSet):
     queryset = Despesa.objects.all()
     serializer_class = DespesaSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["data"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["data"]

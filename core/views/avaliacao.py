@@ -6,5 +6,5 @@ from core.serializers import AvaliacaoSerializer
 class AvaliacaoViewSet(ModelViewSet):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["usuario", "produto_nome" , "nota", "data"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["usuario", "produto_nome" , "nota", "data"]
