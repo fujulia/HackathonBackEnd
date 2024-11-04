@@ -9,3 +9,4 @@ from .cupom import CupomViewSet
 from .compra import CompraViewSet
 from .MovimentacaoFinanceira import MovimentacaoViewSet
 from .orcamento import OrcamentoViewSet
+from .categoria import CategoriaViewSet
