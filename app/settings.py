@@ -1,7 +1,6 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-
 import dj_database_url
 from dotenv import load_dotenv
 
@@ -78,8 +77,8 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 # Databases
 DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite:///db.sqlite3",
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
         conn_max_age=600,
         conn_health_checks=True,
     )
