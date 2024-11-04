@@ -12,7 +12,7 @@ from django.conf.urls.static import static
 from uploader.router import router as uploader_router
 from django.conf import settings
 from core.views import UserViewSet, ProdutoViewSet, FabricanteViewSet, AvaliacaoViewSet, EnderecoViewSet, TelefoneViewSet, DespesaViewSet, CupomViewSet, CompraViewSet, MovimentacaoViewSet, OrcamentoViewSet
-
+from core.views.email.envioEmail import EnviarEmailAPIView
 router = DefaultRouter()
 
 router.register(r"usuarios", UserViewSet, basename="usuarios")
@@ -48,6 +48,7 @@ urlpatterns = [
     path("api/media/", include(uploader_router.urls)),
     # API
     path("api/", include(router.urls)),
+    path('api/send-email/', EnviarEmailAPIView.as_view(), name='envio_email_api'),
 
 ]
 
