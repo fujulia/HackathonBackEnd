@@ -6,5 +6,5 @@ from core.serializers import MovimentacaoSerializer
 class MovimentacaoViewSet(ModelViewSet):
     queryset = MovimentacaoFinanceira.objects.all()
     serializer_class = MovimentacaoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["tipo", "data"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["tipo", "data"]

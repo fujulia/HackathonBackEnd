@@ -6,5 +6,5 @@ from core.serializers import CupomSerializer
 class CupomViewSet(ModelViewSet):
     queryset = Cupom.objects.all()
     serializer_class = CupomSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["nome", "porcentagem_desconto"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["nome", "porcentagem_desconto"]

@@ -12,8 +12,8 @@ from django.db import transaction
 class CompraViewSet(ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["usuario", "status" , "metodo_Pagamento", "data", "cupom_nome"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["usuario", "status" , "metodo_Pagamento", "data", "cupom_nome"]
     
     
     # def get_queryset(self):

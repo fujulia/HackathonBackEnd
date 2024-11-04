@@ -12,8 +12,8 @@ from core.serializers import ProdutoSerializer, ProdutoDetailSerializer, Alterar
 class ProdutoViewSet(ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["categoria__descricao", "fabricante_nome" , "preco"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["categoria__descricao", "fabricante_nome" , "preco"]
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:

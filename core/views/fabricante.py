@@ -7,5 +7,5 @@ from django_filters.rest_framework import DjangoFilterBackend
 class FabricanteViewSet(ModelViewSet):
     queryset = Fabricante.objects.all()
     serializer_class = FabricanteSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["nome", "cnpj" , "email"]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["nome", "cnpj" , "email"]
