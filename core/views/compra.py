@@ -2,6 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.utils import timezone
+
 
 from core.models import Compra, Cupom
 from core.serializers import CompraSerializer, CriarEditarCompraSerializer, ListarCompraSerializer
@@ -89,3 +91,26 @@ class CompraViewSet(ModelViewSet):
         # Retorna uma resposta de sucesso indicando que a compra foi finalizada.
         return Response(status=status.HTTP_200_OK, data={"status": "Compra finalizada"})
     
+    
+    @action(detail=False, methods=["get"])
+    def relatorio_vendas_mes(self, request):
+        # Define o início do mês atual
+        agora = timezone.now()
+        inicio_mes = agora.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
+        # Filtra as compras realizadas desde o início do mês até o presente momento
+        compras = Compra.objects.filter(status=Compra.StatusCompra.REALIZADO, data__gte=inicio_mes)
+
+        # Calcula o total de vendas e a quantidade de vendas
+        total_vendas = sum(compra.total for compra in compras)
+        quantidade_vendas = compras.count()
+
+        # Retorna o relatório
+        return Response(
+            {
+                "status": "Relatório de vendas deste mês",
+                "total_vendas": total_vendas,
+                "quantidade_vendas": quantidade_vendas,
+            },
+            status=status.HTTP_200_OK,
+        )
