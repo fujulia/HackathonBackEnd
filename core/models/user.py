@@ -45,7 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     endereco =  models.ManyToManyField(Endereco, related_name="endereco_usuario", blank=True)
-    telefone =  models.ManyToManyField(Telefone, related_name="telefone_usuario", blank=True)
+    telefone = models.ForeignKey(Telefone, on_delete=models.SET_NULL, null=True, blank=True)  # Relacionamento com Telefone
     foto = models.ForeignKey(
         Image,
         related_name="+",
