@@ -6,7 +6,8 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 class EnviarEmailAPIView(APIView):
-    permission_classes = [AllowAny]  # Permite acesso a todos
+    permission_classes = [AllowAny]
+    authentication_classes = [] # Permite acesso a todos
     queryset = []  
     
     def post(self, request):

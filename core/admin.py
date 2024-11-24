@@ -57,10 +57,10 @@ class UserAdmin(BaseUserAdmin):
     
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'descricao', 'categoria', 'preco')
-    search_fields = ('nome', 'descricao','categoria', 'preco')
-    list_filter = ('nome', 'descricao', 'categoria', 'preco')
-    ordering = ('nome', 'descricao','categoria', 'preco')
+    list_display = ('nome','categoria', 'preco')
+    search_fields = ('nome','categoria', 'preco')
+    list_filter = ('nome','categoria', 'preco')
+    ordering = ('nome','categoria', 'preco')
     list_per_page = 10
 
 @admin.register(Fabricante)
