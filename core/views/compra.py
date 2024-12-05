@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 from core.models import Compra, Cupom
 from core.serializers import CompraSerializer, CriarEditarCompraSerializer, ListarCompraSerializer
@@ -12,6 +13,9 @@ from django.db import transaction
 class CompraViewSet(ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    authentication_classes = [] 
+
     # filter_backends = [DjangoFilterBackend]
     # filterset_fields = ["usuario", "status" , "metodo_Pagamento", "data", "cupom_nome"]
     

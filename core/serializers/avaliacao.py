@@ -6,3 +6,9 @@ class AvaliacaoSerializer(ModelSerializer):
     class Meta:
         model = Avaliacao
         fields = "__all__"
+        
+class AvaliacaoDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Avaliacao
+        fields = "__all__"
+        depth = 2

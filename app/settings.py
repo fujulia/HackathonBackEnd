@@ -145,17 +145,26 @@ SPECTACULAR_SETTINGS = {
 AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("core.authentication.TokenAuthentication",), # Autenticação no passage.id
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly", ), 
-    "DEFAULT_PERMISSION_CLASSES": [
-        'rest_framework.permissions.AllowAny',  # Permite acesso sem autenticação
+    # Classes de autenticação
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "core.authentication.TokenAuthentication",  # Autenticação customizada do passage.id
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",  # Autenticação JWT
     ],
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",), # Permissões através dos grupos do Django
+
+    # Classes de permissão
+    "DEFAULT_PERMISSION_CLASSES": [
+          "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly", # Permissões baseadas em grupos
+        # "rest_framework.permissions.AllowAny",  # Permitir acesso irrestrito (use para testes apenas)
+    ],
+
+    # Paginação
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+
+    # Configuração de schemas para documentação (como Swagger)
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "PAGE_SIZE": 10,
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",), #Autenticação com JWT
 }
+
 
 PASSAGE_APP_ID = "V0alwA7XSzKK5hRenPSvbiYf"
 PASSAGE_API_KEY = "OIBsFjDqbO.ZRSTN07P4Xb72detsxQmgMKdKWpx1XdYu4VoE3NjXmjeu0Ms3FDolGteWlf3GXVm"

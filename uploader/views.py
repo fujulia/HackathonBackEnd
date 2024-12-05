@@ -14,7 +14,10 @@ class DocumentUploadViewSet(CreateViewSet):
     parser_classes = [parsers.FormParser, parsers.MultiPartParser]
 
 
-class ImageUploadViewSet(CreateViewSet):
-    queryset = Image.objects.all() #  pylint: disable=no-member
+class ImageUploadViewSet(mixins.ListModelMixin,
+                         mixins.CreateModelMixin,
+                         mixins.DestroyModelMixin,  # Permite exclusão
+                         viewsets.GenericViewSet):
+    queryset = Image.objects.all()  # Consulta todas as imagens
     serializer_class = ImageUploadSerializer
     parser_classes = [parsers.FormParser, parsers.MultiPartParser]
