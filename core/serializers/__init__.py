@@ -1,7 +1,7 @@
 from .user import UserSerializer
 from .produto import ProdutoSerializer, ProdutoDetailSerializer, AlterarPrecoSerializer
 from .fabricante import FabricanteSerializer
-from .avaliacao import AvaliacaoSerializer
+from .avaliacao import AvaliacaoSerializer, AvaliacaoDetailSerializer
 from .endereco import EnderecoSerializer
 from .telefone import TelefoneSerializer
 from .despesa import DespesaSerializer

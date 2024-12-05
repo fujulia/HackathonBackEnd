@@ -10,6 +10,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from uploader.router import router as uploader_router
+from uploader.views import ImageUploadViewSet
 from django.conf import settings
 from core.views import UserViewSet, ProdutoViewSet, FabricanteViewSet, AvaliacaoViewSet, EnderecoViewSet, TelefoneViewSet, DespesaViewSet, CupomViewSet, CompraViewSet, MovimentacaoViewSet, OrcamentoViewSet, CategoriaViewSet
 from core.views.email.envioEmail import EnviarEmailAPIView
@@ -27,6 +28,7 @@ router.register(r"compras", CompraViewSet)
 router.register(r"movimentacoes", MovimentacaoViewSet)
 router.register(r"orcamentos", OrcamentoViewSet)
 router.register(r"orcamentos", CategoriaViewSet)
+router.register(r'images', ImageUploadViewSet, basename='image')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
