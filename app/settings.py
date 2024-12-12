@@ -1,7 +1,6 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-
 import dj_database_url
 from dotenv import load_dotenv
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework",
     "rest_framework_simplejwt",
+    "uploader", 
     "core",
 ]
 
@@ -77,8 +77,8 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 # Databases
 DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite:///db.sqlite3",
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -131,10 +131,10 @@ else:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=8),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
-}
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(hours=8),
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+# }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "<PROJETO> API",
@@ -145,17 +145,49 @@ SPECTACULAR_SETTINGS = {
 AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("core.authentication.TokenAuthentication",), # Autenticação no passage.id
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"), # Permissão total para usuários autenticados
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",), # Permissões através dos grupos do Django
+    # Classes de autenticação
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "core.authentication.TokenAuthentication",  # Autenticação customizada do passage.id
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",  # Autenticação JWT
+    ],
+
+    # Classes de permissão
+    "DEFAULT_PERMISSION_CLASSES": [
+          "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly", # Permissões baseadas em grupos
+        # "rest_framework.permissions.AllowAny",  # Permitir acesso irrestrito (use para testes apenas)
+    ],
+
+    # Paginação
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 50,
+
+    # Configuração de schemas para documentação (como Swagger)
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "PAGE_SIZE": 10,
-    # "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",), Autenticação com JWT
 }
 
-PASSAGE_APP_ID = os.getenv("PASSAGE_APP_ID", "app_id")
-PASSAGE_API_KEY = os.getenv("PASSAGE_API_KEY", "api_key")
+
+PASSAGE_APP_ID = "V0alwA7XSzKK5hRenPSvbiYf"
+PASSAGE_API_KEY = "OIBsFjDqbO.ZRSTN07P4Xb72detsxQmgMKdKWpx1XdYu4VoE3NjXmjeu0Ms3FDolGteWlf3GXVm"
+
 PASSAGE_AUTH_STRATEGY = 2
+
+ADMIN_GROUP_NAME = 'Administradores' 
+COMPRADOR_GROUP_NAME = 'Compradores' 
+
+ADMIN_EMAILS = [
+    'juliafu713@gmail.com',
+    'vinyescolas@gmail.com'
+]
+
+# envio email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')   # Substitua pela sua senha
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 print(f"{MODE = } \n{MEDIA_URL = } \n{DATABASES = }")
